@@ -2,18 +2,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class OpenAnswerQuestion extends Question {
+public class OpenAnswerQuestion extends Question {
+    private final String correctAnswer;
+
     public OpenAnswerQuestion(String questionText, String correctAnswer) {
-        super(questionText, new ArrayList<>(), correctAnswer); // No options for open answer
+        super(questionText, "Open answer question", null); // No options for open answer
+        this.correctAnswer = correctAnswer;
     }
 
     @Override
-    public String getType() {
-        return "Open answer question";
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     @Override
-    public List<String> getOptions() {
-        return Collections.emptyList(); // Return an empty list since there are no options
+    public boolean isCorrect(String userAnswer) {
+        return correctAnswer.equalsIgnoreCase(userAnswer.trim());
     }
 }

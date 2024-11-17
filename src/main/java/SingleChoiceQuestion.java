@@ -1,12 +1,20 @@
 import java.util.List;
 
-class SingleChoiceQuestion extends Question {
+public class SingleChoiceQuestion extends Question {
+    private final String correctAnswer;
+
     public SingleChoiceQuestion(String questionText, List<String> options, String correctAnswer) {
-        super(questionText, options, correctAnswer);
+        super(questionText, "Question with single answer", options);
+        this.correctAnswer = correctAnswer;
     }
 
     @Override
-    public String getType() {
-        return "Question with single answer";
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    @Override
+    public boolean isCorrect(String userAnswer) {
+        return correctAnswer.equalsIgnoreCase(userAnswer.trim());
     }
 }

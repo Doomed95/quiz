@@ -20,4 +20,13 @@ class Answer {
     public boolean isCorrect() {
         return isCorrect;
     }
+
+    @Override
+    public String toString() {
+        return "Question: " + question.getQuestionText() +
+                "\nYour answer: " + userAnswer +
+                "\nCorrect answer: " + question.getCorrectAnswer() +
+                "\n" + (isCorrect() ? "Correct!" : "Incorrect") + "\n";
+
+    }
 }

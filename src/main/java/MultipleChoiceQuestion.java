@@ -1,23 +1,23 @@
 import java.util.Arrays;
 import java.util.List;
 
-class MultipleChoiceQuestion extends Question {
+public class MultipleChoiceQuestion extends Question {
+    private final String correctAnswer;
+
     public MultipleChoiceQuestion(String questionText, List<String> options, String correctAnswer) {
-        super(questionText, options, correctAnswer);
+        super(questionText, "Question with multiple answers", options);
+        this.correctAnswer = correctAnswer;
     }
 
     @Override
-    public String getType() {
-        return "Question with multiple answers";
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     @Override
-    public boolean isCorrect(String answer) {
-        // Sort both the correct answer and the user input alphabetically for comparison
-        char[] correct = correctAnswer.toLowerCase().toCharArray();
-        char[] user = answer.toLowerCase().toCharArray();
-        Arrays.sort(correct);
-        Arrays.sort(user);
-        return Arrays.equals(correct, user);
+    public boolean isCorrect(String userAnswer) {
+        String normalizedUserAnswer = userAnswer.trim().toLowerCase();
+        return normalizedUserAnswer.chars().allMatch(c -> correctAnswer.contains(Character.toString(c)))
+                && normalizedUserAnswer.length() == correctAnswer.length();
     }
 }

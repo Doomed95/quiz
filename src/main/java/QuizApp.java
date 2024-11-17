@@ -50,7 +50,7 @@ public class QuizApp {
             for (Question question : selectedQuiz.questions()) {
                 System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
 
-                String userAnswer = "";
+                String userAnswer;
 
                 if (question instanceof OpenAnswerQuestion) {
                     System.out.print("Your answer: ");
@@ -64,7 +64,7 @@ public class QuizApp {
                     // Validate input for valid choices (a, b, c, d)
                     while (true) {
                         System.out.print("Your answer: ");
-                        userAnswer = scanner.nextLine();
+                        userAnswer = scanner.nextLine().trim();
                         boolean isValid = true;
 
                         if (question instanceof SingleChoiceQuestion) {
@@ -87,6 +87,7 @@ public class QuizApp {
 
                 Answer answer = new Answer(question, userAnswer);
                 answers.add(answer);
+
                 if (answer.isCorrect()) {
                     score++;
                 }
@@ -94,12 +95,17 @@ public class QuizApp {
 
             System.out.println("You had " + score + "/" + selectedQuiz.questions().size() + " answers correct!");
 
+            System.out.println("\nDetailed Results:");
+            for (Answer answer : answers) {
+                System.out.println(answer);
+            }
+
+
             System.out.println("Would you like to try another quiz? (yes/no)");
             String choice = scanner.nextLine();
             playAgain = choice.equalsIgnoreCase("yes");
         }
         System.out.println("Thank you for playing!");
-        scanner.close();
     }
 
     private static Quiz createMathQuiz() {

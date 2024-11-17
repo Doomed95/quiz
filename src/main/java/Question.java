@@ -1,27 +1,29 @@
 import java.util.List;
 
-abstract class Question {
-    protected String questionText;
-    protected List<String> options;
-    protected String correctAnswer;
+public abstract class Question {
+    private final String questionText;
+    private final String type;
+    private final List<String> options;
 
-    public Question(String questionText, List<String> options, String correctAnswer) {
+    public Question(String questionText, String type, List<String> options) {
         this.questionText = questionText;
+        this.type = type;
         this.options = options;
-        this.correctAnswer = correctAnswer;
     }
 
     public String getQuestionText() {
         return questionText;
     }
 
+    public String getType(){
+        return type;
+    }
+
     public List<String> getOptions() {
         return options;
     }
 
-    public abstract String getType();
+    public abstract String getCorrectAnswer();
 
-    public boolean isCorrect(String answer) {
-        return answer.equalsIgnoreCase(correctAnswer);
-    }
+    public abstract boolean isCorrect(String userAnswer);
 }
