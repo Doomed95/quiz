@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -6,8 +5,13 @@ public class OpenAnswerQuestion extends Question {
     private final String correctAnswer;
 
     public OpenAnswerQuestion(String questionText, String correctAnswer) {
-        super(questionText, "Open answer question", null); // No options for open answer
+        super(questionText); // No options for open answer
         this.correctAnswer = correctAnswer;
+    }
+
+    @Override
+    public boolean isCorrect(String userAnswer) {
+        return correctAnswer.equalsIgnoreCase(userAnswer.trim());
     }
 
     @Override
@@ -16,7 +20,9 @@ public class OpenAnswerQuestion extends Question {
     }
 
     @Override
-    public boolean isCorrect(String userAnswer) {
-        return correctAnswer.equalsIgnoreCase(userAnswer.trim());
+    public List<String> getOptions() {
+        return Collections.emptyList();
     }
+
+
 }

@@ -48,23 +48,25 @@ public class QuizApp {
             List<Answer> answers = new ArrayList<>();
 
             for (Question question : selectedQuiz.questions()) {
-                System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
+                System.out.println(question.getQuestionText());
 
                 String userAnswer;
+                List<String> options = question.getOptions();
 
                 if (question instanceof OpenAnswerQuestion) {
                     System.out.print("Your answer: ");
                     userAnswer = scanner.nextLine().trim(); // No need for validation for open answer
                 } else {
-                    // Display options for single and multiple choice question
-                    for (int i = 0; i < question.getOptions().size(); i++) {
-                        System.out.println((char) ('a' + i) + ". " + question.getOptions().get(i));
+                    if (options != null) {
+                        for (int i = 0; i < options.size(); i++) {
+                            System.out.println((char) ('a' + i) + ". " + options.get(i));
+                        }
                     }
 
                     // Validate input for valid choices (a, b, c, d)
                     while (true) {
                         System.out.print("Your answer: ");
-                        userAnswer = scanner.nextLine().trim();
+                        userAnswer = scanner.nextLine();
                         boolean isValid = true;
 
                         if (question instanceof SingleChoiceQuestion) {

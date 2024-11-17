@@ -1,32 +1,21 @@
 class Answer {
     private final Question question;
     private final String userAnswer;
-    private final boolean isCorrect;
 
     public Answer(Question question, String userAnswer) {
         this.question = question;
         this.userAnswer = userAnswer;
-        this.isCorrect = question.isCorrect(userAnswer);
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public String getUserAnswer() {
-        return userAnswer;
     }
 
     public boolean isCorrect() {
-        return isCorrect;
+        return question.isCorrect(userAnswer);
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return "Question: " + question.getQuestionText() +
                 "\nYour answer: " + userAnswer +
                 "\nCorrect answer: " + question.getCorrectAnswer() +
                 "\n" + (isCorrect() ? "Correct!" : "Incorrect") + "\n";
-
     }
 }
