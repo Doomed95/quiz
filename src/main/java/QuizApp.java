@@ -48,7 +48,7 @@ public class QuizApp {
 
             if (question instanceof OpenAnswerQuestion) {
                 System.out.print("Your answer: ");
-                userAnswer = scanner.nextLine(); // No need for validation for open answer
+                userAnswer = scanner.nextLine().trim(); // No need for validation for open answer
             } else {
                 // Display options for single and multiple choice question
                 for (int i = 0; i < question.getOptions().size(); i++) {
