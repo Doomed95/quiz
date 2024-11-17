@@ -6,95 +6,95 @@ public class QuizApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welcome to the Quiz Application!");
+        boolean playAgain = true;
+        while (playAgain) {
+            System.out.println("Welcome to the Quiz Application!");
 
-        int quizChoice = -1;
-        while (true) {
-            try {
-                System.out.println("Please choose a quiz to begin:");
-                System.out.println("1. Math Quiz");
-                System.out.println("2. General Knowledge Quiz");
+            int quizChoice = -1;
+            while (true) {
+                try {
+                    System.out.println("Please choose a quiz to begin:");
+                    System.out.println("1. Math Quiz");
+                    System.out.println("2. General Knowledge Quiz");
 
-                quizChoice = Integer.parseInt(scanner.nextLine());
+                    quizChoice = Integer.parseInt(scanner.nextLine());
 
-                if (quizChoice == 1 || quizChoice == 2) {
-                    break;
-                } else {
-                    System.out.println("Invalid choice. Please enter 1 or 2.");
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid choice. Please enter 1 or 2.");
-            }
-        }
-
-        Quiz selectedQuiz;
-        if (quizChoice == 1) {
-            selectedQuiz = createMathQuiz();
-        } else {
-            selectedQuiz = createGeneralKnowledgeQuiz();
-        }
-
-        System.out.println("Welcome to " + selectedQuiz.name());
-        System.out.println("This quiz has " + selectedQuiz.questions().size() + " questions.");
-
-        int score = 0;
-
-        List<Answer> answers = new ArrayList<>();
-
-        for (Question question : selectedQuiz.questions()) {
-            System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
-
-            String userAnswer = "";
-
-            if (question instanceof OpenAnswerQuestion) {
-                System.out.print("Your answer: ");
-                userAnswer = scanner.nextLine().trim(); // No need for validation for open answer
-            } else {
-                // Display options for single and multiple choice question
-                for (int i = 0; i < question.getOptions().size(); i++) {
-                    System.out.println((char) ('a' + i) + ". " + question.getOptions().get(i));
-                }
-
-                // Validate input for valid choices (a, b, c, d)
-                while (true) {
-                    System.out.print("Your answer: ");
-                    userAnswer = scanner.nextLine();
-                    boolean isValid = true;
-
-                    if (question instanceof SingleChoiceQuestion) {
-                        isValid = userAnswer.length() == 1 && "abcd".contains(userAnswer);
-                    } else if (question instanceof MultipleChoiceQuestion) {
-                        for (char c : userAnswer.toCharArray()) {
-                            if (!"abcd".contains(String.valueOf(c))) {
-                                isValid = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (isValid) {
+                    if (quizChoice == 1 || quizChoice == 2) {
                         break;
                     } else {
-                        System.out.println("Invalid answer. Please enter only valid options (e.g., a, b, c, d).");
+                        System.out.println("Invalid choice. Please enter 1 or 2.");
                     }
+                } catch (Exception e) {
+                    System.out.println("Invalid choice. Please enter 1 or 2.");
                 }
             }
 
-            Answer answer = new Answer(question, userAnswer);
-            answers.add(answer);
-            if (answer.isCorrect()) {
-                score++;
+            Quiz selectedQuiz;
+            if (quizChoice == 1) {
+                selectedQuiz = createMathQuiz();
+            } else {
+                selectedQuiz = createGeneralKnowledgeQuiz();
             }
-        }
 
-        System.out.println("You had " + score + "/" + selectedQuiz.questions().size() + " answers correct!");
+            System.out.println("Welcome to " + selectedQuiz.name());
+            System.out.println("This quiz has " + selectedQuiz.questions().size() + " questions.");
 
-        System.out.println("Would you like to try another quiz? (yes/no)");
-        String choice = scanner.nextLine();
-        if (choice.equalsIgnoreCase("yes")) {
-            main(args); // Restart the application
-        } else {
-            System.out.println("Thank you for playing!");
+            int score = 0;
+
+            List<Answer> answers = new ArrayList<>();
+
+            for (Question question : selectedQuiz.questions()) {
+                System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
+
+                String userAnswer = "";
+
+                if (question instanceof OpenAnswerQuestion) {
+                    System.out.print("Your answer: ");
+                    userAnswer = scanner.nextLine().trim(); // No need for validation for open answer
+                } else {
+                    // Display options for single and multiple choice question
+                    for (int i = 0; i < question.getOptions().size(); i++) {
+                        System.out.println((char) ('a' + i) + ". " + question.getOptions().get(i));
+                    }
+
+                    // Validate input for valid choices (a, b, c, d)
+                    while (true) {
+                        System.out.print("Your answer: ");
+                        userAnswer = scanner.nextLine();
+                        boolean isValid = true;
+
+                        if (question instanceof SingleChoiceQuestion) {
+                            isValid = userAnswer.length() == 1 && "abcd".contains(userAnswer);
+                        } else if (question instanceof MultipleChoiceQuestion) {
+                            for (char c : userAnswer.toCharArray()) {
+                                if (!"abcd".contains(String.valueOf(c))) {
+                                    isValid = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (isValid) {
+                            break;
+                        } else {
+                            System.out.println("Invalid answer. Please enter only valid options (e.g., a, b, c, d).");
+                        }
+                    }
+                }
+
+                Answer answer = new Answer(question, userAnswer);
+                answers.add(answer);
+                if (answer.isCorrect()) {
+                    score++;
+                }
+            }
+
+            System.out.println("You had " + score + "/" + selectedQuiz.questions().size() + " answers correct!");
+
+            System.out.println("Would you like to try another quiz? (yes/no)");
+            String choice = scanner.nextLine();
+            playAgain = choice.equalsIgnoreCase("yes");
         }
+        System.out.println("Thank you for playing!");
         scanner.close();
     }
 
