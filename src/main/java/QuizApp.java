@@ -16,16 +16,20 @@ public class QuizApp {
                     System.out.println("Please choose a quiz to begin:");
                     System.out.println("1. Math Quiz");
                     System.out.println("2. General Knowledge Quiz");
+                    System.out.println("3. Exit quiz");
 
                     quizChoice = Integer.parseInt(scanner.nextLine());
 
                     if (quizChoice == 1 || quizChoice == 2) {
                         break;
+                    } else if (quizChoice == 3) {
+                        System.out.println("Exiting the application. Goodbye!");
+                        System.exit(0);
                     } else {
-                        System.out.println("Invalid choice. Please enter 1 or 2.");
+                        System.out.println("Invalid choice. Please enter 1, 2 or 3.");
                     }
                 } catch (Exception e) {
-                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                    System.out.println("Invalid choice. Please enter 1, 2 or 3.");
                 }
             }
 
