@@ -15,7 +15,7 @@ public abstract class Question {
         return questionText;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
