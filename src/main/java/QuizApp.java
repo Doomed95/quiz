@@ -39,6 +39,8 @@ public class QuizApp {
 
         int score = 0;
 
+        List<Answer> answers = new ArrayList<>();
+
         for (Question question : selectedQuiz.questions()) {
             System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
 
@@ -77,8 +79,9 @@ public class QuizApp {
                 }
             }
 
-
-            if (question.isCorrect(userAnswer)) {
+            Answer answer = new Answer(question, userAnswer);
+            answers.add(answer);
+            if (answer.isCorrect()) {
                 score++;
             }
         }
