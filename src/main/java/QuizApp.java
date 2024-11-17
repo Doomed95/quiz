@@ -34,12 +34,12 @@ public class QuizApp {
             selectedQuiz = createGeneralKnowledgeQuiz();
         }
 
-        System.out.println("Welcome to " + selectedQuiz.getName());
-        System.out.println("This quiz has " + selectedQuiz.getQuestions().size() + " questions.");
+        System.out.println("Welcome to " + selectedQuiz.name());
+        System.out.println("This quiz has " + selectedQuiz.questions().size() + " questions.");
 
         int score = 0;
 
-        for (Question question : selectedQuiz.getQuestions()) {
+        for (Question question : selectedQuiz.questions()) {
             System.out.println(question.getQuestionText() + " (" + question.getType() + ")");
 
             String userAnswer = "";
@@ -83,7 +83,7 @@ public class QuizApp {
             }
         }
 
-        System.out.println("You had " + score + "/" + selectedQuiz.getQuestions().size() + " answers correct!");
+        System.out.println("You had " + score + "/" + selectedQuiz.questions().size() + " answers correct!");
 
         System.out.println("Would you like to try another quiz? (yes/no)");
         String choice = scanner.nextLine();
